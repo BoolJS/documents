@@ -95,6 +95,20 @@ We prepared a _kitten free_ sample using a dog store, where you can see how to c
 >
 > Finally, depending on how you name your files, they will be referenced as CamelCase classes in the namespace structure.
 
+### Namespaces
+
+If javascript is not your first programming language, you'll probably know the concept of namespaces. I mean, they exist almost everywhere: Python, Java, C++/C#… even PHP use them, altough you didn't know it. However, if you are not familiar to them, here's the best introduction you'll ever find about what a namespace is.
+
+> Namespaces are a hierarchical way to arrange code, dividing it into... what? You said it'd be easy. Let's start again.
+
+Have you ever used sorted your music in folders? First you sort them by artist, them by albums and finally (if needed) by CD numbers. Then, you look up your favorite songs easier than having all them merged in one place, in a way like: `artist/album/cd1/my_favourite_song.mp3`.
+
+Well, that kind of sorting can be made in code too! We call it namespaces, and are simple as this: sort code into similar kinds of behaviours, so if you'd like to know where is the (for example): Dog's controller, you'll find it into the controllers module, into the application. Then, look up in a way like this: `application.controllers.Dog`. Pretty similar, huh?
+
+In bool.js there are seven essential kinds of components: configuration files, controllers, business logic code (better known as DAO), models, routes, plugins and views.
+
+#### File conventions
+
 ### Modules: what are them?
 
 A module is basically a function containing executable code, which passes parameters referencing the application's other components through namespaces, as well as other parameters: database drivers, libraries, etc. You can recognize them as code files into the following folders: `controllers`, `dao`, `plugins`, `models` and `routes`.
@@ -197,10 +211,6 @@ return this;
 ```
 
 This way is often used in mongoose models, because we are returning an Schema instance, and into it, we declare handy functions and mongoose plugins.
-
-### Namespaces
-
-#### File conventions
 
 ### The router stuff
 
