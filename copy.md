@@ -107,7 +107,21 @@ Well, that kind of sorting can be made in code too! We call it namespaces, and a
 
 In bool.js there are seven essential kinds of components: configuration files, controllers, business logic code (better known as DAO), models, routes, plugins and views.
 
+All of them come from a single base object, defined as a parameter in the modules' header.
+
 #### File conventions
+
+Bool.js uses the filenames to call classes in the application skeleton. Here are the basic rules:
+
+1. A class is called like the filename, with its first letter capitalized.
+2. If a `_` character is found, is taken as a word separator, and is processed as another word, giving each word the same treatment of rule 1.
+
+##### Examples
+
+`controllers/dog.js` gets transformed into `controllers.Dog`
+`models/artist_albums` gets transformet into `models.ArtistAlbums`
+
+And so on…
 
 ### Modules: what are them?
 
