@@ -265,7 +265,7 @@ I apply `booljs-cors` and `booljs-oauth` plugins to an API. First one defines a 
 {
     method: 'get',
     url: '/dog/:id',
-    action: dog.findById,
+    action: dog.find,
     cors: true
 },
 {
@@ -277,3 +277,38 @@ I apply `booljs-cors` and `booljs-oauth` plugins to an API. First one defines a 
 ```
 
 OAuth will execute in first route, because its disable policy `public: true` doesn't appear. In the second case, because CORS type is mandatory, won't set headers, however, it won't require a Bearer authorization, because we've declared the disable policy.
+
+### Controllers
+
+Less strict than routers, but still following the server's specifications, controllers define the point where the web requests are received and start gathering information to process its behaviour. Their code body must return an object containing functions.
+
+Each function passes two essential parameters: the `request` information, as well as the server's `response`. Depending on the server's implementation, some other parameters (such as `next`) can be passed.
+
+If included in the server's implementation (default's implementation includes one), you can apply views, which are prebuilt responses for API calls.
+
+Also, is recommended that routers don't reference more than one controller, because this will cause multiple instances of them, and it's recommended to have just one of them. To avoid issues, load references in code body, not in definitions section.
+
+Finally, avoid combining business logic code (field validations, complex joining operations). To achieve that goal, you must code these operations in DAO components: they are the main point to the back-end of the API, and should be carefully documented for project's developers or other's projects which use your project's resources via calling them in API requires.
+
+```js
+'use strict';
+
+module.exports = function (app) {
+    var Dog     = app.dao.Dog
+    ,   Json    = app.views.Json;
+
+    return {
+        list: function (req, res) {
+            return new Dog().list(req.query, function (err, data) {
+                if(err) {
+                    Json.error(err, res);
+                }
+                Json.standard(data, res);
+            });
+        },
+        find:
+    };
+}
+```
+
+###
