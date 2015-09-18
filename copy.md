@@ -228,4 +228,52 @@ This way is often used in mongoose models, because we are returning an Schema in
 
 ### The router stuff
 
-**Router components** are _modules_ that contain an array of routes that must be deployed by the web server driver. A route
+**Router components** are _modules_ that contain an array of routes that must be deployed by the web server driver. A route is a literal object (`{}`), defining the necessary elements to describe a path to be deployed by the web server's router.
+
+The collection of elements include the path, denoted by `url` field; the HTTP verbose method, `method` field; the handler, a controller identified by `action` field, and that must comply the web server's specifications, but is generally a function with two parameters: `request` and `response`.
+
+Depending on middleware loaded to be implemented, other fields, known as policies, could be included in the router definition. For example: bool.js default's web server implementation, express.js, includes a middleware to output CORS headers.
+
+```js
+'use strict';
+
+module.exports = function (app) {
+    var dog = new app.controllers.Dog();
+
+    return [
+        {
+            method: 'get',
+            url: '/dog',
+            action: dog.list
+        },
+        {
+            method: 'get',
+            url: '/dog/:id',
+            action: dog.find
+        }
+    ];    
+};
+```
+
+#### Policy types: mandatory and omittable.
+
+None of the policies are required to be included in the route's definition. However, middleware are required to specify whether they can be activated or disabled. Mandatory policies are those which need to exist in the route's definition with an specific value to activate the middleware in the route. Contrary to first ones, omittable policies are those which being declared in the route's definition disable the behaviour of the middleware for an specific route.
+
+I apply `booljs-cors` and `booljs-oauth` plugins to an API. First one defines a Middleware with mandatory policies, while OAuth plugin is omittable. In that case, if I define these routes:
+
+```js
+{
+    method: 'get',
+    url: '/dog/:id',
+    action: dog.findById,
+    cors: true
+},
+{
+    method: 'get',
+    url: '/dog',
+    action: dog.list
+    public: true
+}
+```
+
+OAuth will execute in first route, because its disable policy `public: true` doesn't appear. In the second case, because CORS type is mandatory, won't set headers, however, it won't require a Bearer authorization, because we've declared the disable policy.
