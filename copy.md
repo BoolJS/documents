@@ -299,14 +299,20 @@ module.exports = function (app) {
 
     return {
         list: function (req, res) {
-            return new Dog().list(req.query, function (err, data) {
+            new Dog().list(req.query, function (err, data) {
                 if(err) {
                     Json.error(err, res);
                 }
                 Json.standard(data, res);
             });
         },
-        find:
+        find: function (req, res, next) {
+            /*
+             * booljs-express' Json view includes a promises processor and
+             * handles errors via next
+             */
+            new Json().promise(new Dog().find(req.params.id), res, next);
+        }
     };
 }
 ```
