@@ -323,6 +323,8 @@ DAO components are the most important part of the bool.js architecture: serve as
 
 Code body must return an object. Unless specified by a requiring plugin (such as `booljs-oauth`), the structure is completely free. However, we keep recommending you to use the code conventions for definition section.
 
+As we told you before, you can use a lot of resource, specially those coming from the namespace `app.utils`: they are utilities you declare from native libraries in node.js, and aren't defined as plugins, so they work as expected in their original documentation.
+
 ### Models
 
 ### Plugins
