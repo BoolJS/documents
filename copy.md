@@ -317,4 +317,12 @@ module.exports = function (app) {
 }
 ```
 
-###
+### DAO
+
+DAO components are the most important part of the bool.js architecture: serve as projects' internal API, as well as being the separation point between API's front-end and back-end. Behind this point you can't handle web anything related to web, socket or any kind of external operations, however you got access to data origins, validation tools and utilities and greater resources.
+
+Code body must return an object. Unless specified by a requiring plugin (such as `booljs-oauth`), the structure is completely free. However, we keep recommending you to use the code conventions for definition section.
+
+### Models
+
+### Plugins
